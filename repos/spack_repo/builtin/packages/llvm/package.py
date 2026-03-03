@@ -3,7 +3,6 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 import os
 import re
-import sys
 
 from spack_repo.builtin.build_systems.cmake import CMakePackage, generator
 from spack_repo.builtin.build_systems.compiler import CompilerPackage
@@ -74,29 +73,6 @@ class Llvm(CMakePackage, CudaPackage, LlvmDetection, CompilerPackage):
     version("20.1.2", sha256="9ee597456405ddf4809bcf66a4765137a68a85361347ca2a4bb13d9176e932ab")
     version("20.1.1", sha256="edde69aa3e48a3892a8f01332ff79cfb6179151b42503c4ba77d2cd408b013bf")
     version("20.1.0", sha256="08bc382733777dda3c96259e3732ff96c1df98d0470c4f85b163274eae687f4f")
-
-    with default_args(deprecated=True):
-        version(
-            "19.1.6", sha256="f07fdcbb27b2b67aa95e5ddadf45406b33228481c250e65175066d36536a1ee2"
-        )
-        version(
-            "19.1.5", sha256="e2204b9903cd9d7ee833a2f56a18bef40a33df4793e31cc090906b32cbd8a1f5"
-        )
-        version(
-            "19.1.4", sha256="010e1fd3cabee8799bd2f8a6fbc68f28207494f315cf9da7057a2820f79fd531"
-        )
-        version(
-            "19.1.3", sha256="e5106e2bef341b3f5e41340e4b6c6a58259f4021ad801acf14e88f1a84567b05"
-        )
-        version(
-            "19.1.2", sha256="622cb6c5e95a3bb7e9876c4696a65671f235bd836cfd0c096b272f6c2ada41e7"
-        )
-        version(
-            "19.1.1", sha256="115dfd98a353d05bffdab3f80db22f159da48aca0124e8c416f437adcd54b77f"
-        )
-        version(
-            "19.1.0", sha256="0a08341036ca99a106786f50f9c5cb3fbe458b3b74cab6089fd368d0edb2edfe"
-        )
 
     # Final releases of previous versions
     version("19.1.7", sha256="59abea1c22e64933fad4de1671a61cdb934098793c7a31b333ff58dc41bff36c")
@@ -194,8 +170,8 @@ class Llvm(CMakePackage, CudaPackage, LlvmDetection, CompilerPackage):
     )
     variant(
         "gold",
-        default=(sys.platform != "darwin"),
-        description="Add support for LTO with the gold linker plugin",
+        default=False,
+        description="Add support for LTO with the gold linker plugin (deprecated)",
     )
     variant("split_dwarf", default=False, description="Build with split dwarf information")
     variant(
@@ -211,7 +187,7 @@ class Llvm(CMakePackage, CudaPackage, LlvmDetection, CompilerPackage):
     )
     variant(
         "targets",
-        default="all",
+        default="aarch64,amdgpu,nvptx,x86",
         description=(
             "What targets to build. Spack's target family is always added "
             "(e.g. X86 is automatically enabled when targeting znver2)."
@@ -852,7 +828,7 @@ class Llvm(CMakePackage, CudaPackage, LlvmDetection, CompilerPackage):
     @run_before("cmake")
     def codesign_check(self):
         if self.spec.satisfies("+code_signing"):
-            codesign = which("codesign")
+            codesign = which("codesign", required=True)
             mkdir("tmp")
             llvm_check_file = join_path("tmp", "llvm_check")
             copy("/usr/bin/false", llvm_check_file)

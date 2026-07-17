@@ -152,6 +152,8 @@ class PyTorch(PythonPackage, CudaPackage, ROCmPackage):
     conflicts("+rocm", when="@2.3", msg="Rocm doesn't support py-torch 2.3 release")
     conflicts("+rocm", when="@2.4", msg="Rocm doesn't support py-torch 2.4 release")
     conflicts("+rocm", when="@2.8", msg="Rocm doesn't support py-torch 2.8 release")
+    conflicts("+rocm", when="@2.12", msg="Rocm doesn't support py-torch 2.12 release")
+    conflicts("+rocm", when="@2.13", msg="Rocm doesn't support py-torch 2.13 release")
     conflicts("+tensorpipe", when="+rocm ^hip@:5.1", msg="TensorPipe not supported until ROCm 5.2")
     conflicts("+breakpad", when="target=ppc64:")
     conflicts("+breakpad", when="target=ppc64le:")

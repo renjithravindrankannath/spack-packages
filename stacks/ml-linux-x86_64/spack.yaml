@@ -142,6 +142,9 @@ spack:
             - amdgpu_target=gfx90a
             - ~flash_attention
             - "%c,cxx=gcc"
+         hwloc:
+          require:
+            - ~rocm
 
   ci:
     pipeline-gen:

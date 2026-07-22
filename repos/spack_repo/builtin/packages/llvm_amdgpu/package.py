@@ -274,7 +274,6 @@ class LlvmAmdgpu(CMakePackage, LlvmDetection, CompilerPackage):
         ("7.2.0", "9e3836d7d6023843a72ecd3fbf3f09b1b6747a9e"),
         ("7.2.1", "9e3836d7d6023843a72ecd3fbf3f09b1b6747a9e"),
         ("7.2.3", "9e3836d7d6023843a72ecd3fbf3f09b1b6747a9e"),
-        ("7.13.0", "9e3836d7d6023843a72ecd3fbf3f09b1b6747a9e"),
     ]:
         resource(
             name="spirv-headers",

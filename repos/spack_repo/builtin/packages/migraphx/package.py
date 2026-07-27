@@ -218,7 +218,7 @@ class Migraphx(ROCmLibrary, CMakePackage):
         if self.spec.satisfies("@7.1:"):
             args.append(self.define("PROTOBUF_INCLUDE_DIR", self.spec["protobuf"].prefix.include))
         if self.spec.satisfies("@7.13:"):
-            args.append(self.define("MIOPEN_USE_MLIR", "OFF"))
+            args.append(self.define("MIGRAPHX_ENABLE_MLIR", "OFF"))
         if "auto" not in self.spec.variants["amdgpu_target"]:
             args.append(self.define_from_variant("GPU_TARGETS", "amdgpu_target"))
         return args

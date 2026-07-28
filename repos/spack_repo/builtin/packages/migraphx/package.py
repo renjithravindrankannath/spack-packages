@@ -84,6 +84,7 @@ class Migraphx(ROCmLibrary, CMakePackage):
         when="@6.0",
     )
     patch("0003-add-half-include-directory-migraphx-6.0.patch", when="@6.0:7.2")
+    patch("0007-disable-mlir-for-7.13.patch", when="@7.13:")
 
     depends_on("cmake@3.5:", type="build")
     depends_on("protobuf", type="link")

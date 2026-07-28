@@ -179,9 +179,10 @@ class Hipblaslt(ROCmLibrary, CMakePackage):
     depends_on("py-packaging", when="@7.1:")
     depends_on("py-msgpack", when="@7.1:")
     depends_on("py-nanobind", when="@7.1:")
-    # rocroller in ROCm 7.1+ fails to build with fmt 11 (consteval FMT_STRING errors).
-    # Keep spdlog/fmt on a known-compatible pair.
-    depends_on("spdlog@:1.14", when="@7.1:")
+    # rocroller in ROCm 7.1-7.2 fails to build with fmt 11 (consteval FMT_STRING errors).
+    # Keep spdlog/fmt on a known-compatible pair for those versions.
+    depends_on("spdlog@:1.14", when="@7.1:7.2")
+    depends_on("spdlog", when="@7.13:")
     depends_on("fmt@11.1:", when="@7.0:")
 
     resource(
@@ -383,8 +384,9 @@ class Hipblaslt(ROCmLibrary, CMakePackage):
             args.append(self.define("FETCHCONTENT_SOURCE_DIR_YAML_CPP", yaml_cpp_source))
             args.append(self.define("FETCHCONTENT_SOURCE_DIR_yaml_cpp", yaml_cpp_source))
             args.append(self.define("yaml-cpp_DIR", yaml_cpp_source))
-            args.append(self.define("spdlog_ROOT", self.spec["spdlog"].prefix))
-            args.append(self.define("spdlog_DIR", self.spec["spdlog"].prefix.lib.cmake.spdlog))
+            if "spdlog" in self.spec:
+                args.append(self.define("spdlog_ROOT", self.spec["spdlog"].prefix))
+                args.append(self.define("spdlog_DIR", self.spec["spdlog"].prefix.lib.cmake.spdlog))
             args.append(
                 self.define(
                     "FETCHCONTENT_SOURCE_DIR_ROCMCMAKEBUILDTOOLS",

@@ -201,7 +201,10 @@ class RocmTensile(ROCmLibrary, CMakePackage):
 
         if self.spec.satisfies("@7.13:"):
             args.append(
-                self.define("CMAKE_MODULE_PATH", f"{self.stage.source_path}/shared/tensile/next-cmake/cmake")
+                self.define(
+                    "CMAKE_MODULE_PATH",
+                    f"{self.stage.source_path}/shared/tensile/next-cmake/cmake",
+                )
             )
         elif self.spec.satisfies("@7.1:"):
             args.append(

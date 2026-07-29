@@ -183,7 +183,7 @@ class Hipblaslt(ROCmLibrary, CMakePackage):
     # Keep spdlog/fmt on a known-compatible pair for those versions.
     depends_on("spdlog@:1.14", when="@7.1:7.2")
     depends_on("spdlog", when="@7.13:")
-    depends_on("fmt@11.1:", when="@7.0:")
+    depends_on("fmt@11.1:", when="@7.0.0,7.0.2,7.13:")
 
     resource(
         name="libdivide",

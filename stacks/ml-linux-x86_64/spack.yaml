@@ -31,7 +31,7 @@ spack:
     - py-botorch
     - py-gpytorch
     - py-kornia
-    #- py-lightning
+    - py-lightning
     #- py-pytorch-lightning
     #- py-segmentation-models-pytorch
     #- py-timm

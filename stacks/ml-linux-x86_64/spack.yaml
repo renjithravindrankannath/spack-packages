@@ -33,7 +33,7 @@ spack:
     - py-kornia
     - py-lightning
     - py-pytorch-lightning
-    #- py-segmentation-models-pytorch
+    - py-segmentation-models-pytorch
     #- py-timm
     - py-torch
     #- py-torch-geometric

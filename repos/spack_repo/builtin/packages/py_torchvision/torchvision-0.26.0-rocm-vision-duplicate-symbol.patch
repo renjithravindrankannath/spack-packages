@@ -1,6 +1,8 @@
---- setup.py.orig	2026-08-09 13:59:24.211961011 -0700
-+++ setup.py	2026-08-09 14:01:13.976910706 -0700
-@@ -165,6 +165,7 @@
+diff --git a/setup.py b/setup.py
+index 7bf83fc..dff1d89 100644
+--- a/setup.py
++++ b/setup.py
+@@ -165,6 +165,7 @@ def make_C_extension():
              project_directory=str(ROOT_DIR),
              output_directory=str(ROOT_DIR),
              includes="torchvision/csrc/ops/cuda/*",

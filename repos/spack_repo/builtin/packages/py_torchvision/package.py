@@ -210,6 +210,16 @@ class PyTorchvision(PythonPackage):
             include.extend(query.headers.directories)
             library.extend(query.libs.directories)
 
+        # When building with ROCm, add all ROCm library include paths for HIP compilation
+        # PyTorch headers transitively include many ROCm headers that extensions need
+        if "^py-torch+rocm" in self.spec:
+            rocm_deps = ["rocthrust", "rocprim", "hipsparse", "hipblas", "hipblas-common",
+                         "hipblaslt", "hipfft", "hiprand", "hipsolver", "rocblas",
+                         "rocsparse", "rocsolver", "rocfft"]
+            for dep in rocm_deps:
+                if dep in self.spec:
+                    include.append(self.spec[dep].prefix.include)
+
         # CONTRIBUTING.md says to use TORCHVISION_INCLUDE and TORCHVISION_LIBRARY, but
         # these do not work for older releases. Build uses a mix of Spack's compiler wrapper
         # and the actual compiler, so this is needed to get parts of the build working.
@@ -218,3 +228,10 @@ class PyTorchvision(PythonPackage):
         env.set("TORCHVISION_LIBRARY", ":".join(library))
         env.set("CPATH", ":".join(include))
         env.set("LIBRARY_PATH", ":".join(library))
+
+        # For ROCm builds, also prepend ROCm includes to ensure hipcc can find them
+        if "^py-torch+rocm" in self.spec:
+            for dep in rocm_deps:
+                if dep in self.spec:
+                    env.prepend_path("CPATH", self.spec[dep].prefix.include)
+                    env.prepend_path("CPLUS_INCLUDE_PATH", self.spec[dep].prefix.include)

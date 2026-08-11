@@ -751,8 +751,16 @@ class PyTorch(PythonPackage, CudaPackage, ROCmPackage):
             # So libtorch_hip.so and dependents find ROCm/runtime libs at runtime and
             # during binary cache relocation (avoids "=> not found" for e.g.
             # libamdhip64.so.6, libhsa-runtime64.so.1).
-            for lib_dir in [self.spec["hip"].prefix.lib, self.spec["hsa-rocr-dev"].prefix.lib]:
+            for lib_dir in [
+                self.spec["hip"].prefix.lib,
+                self.spec["hsa-rocr-dev"].prefix.lib,
+                self.spec["rocm-smi-lib"].prefix.lib,
+            ]:
                 env.append_flags("LDFLAGS", "-Wl,-rpath," + lib_dir)
+            # Link to rocm-smi-lib which provides rsmi_* symbols used by libtorch_hip.so
+            env.append_flags(
+                "LDFLAGS", "-L{} -lrocm_smi64".format(self.spec["rocm-smi-lib"].prefix.lib)
+            )
             env.set("PYTORCH_ROCM_ARCH", ";".join(self.spec.variants["amdgpu_target"].value))
             env.set("HSA_PATH", self.spec["hsa-rocr-dev"].prefix)
             env.set("ROCBLAS_PATH", self.spec["rocblas"].prefix)

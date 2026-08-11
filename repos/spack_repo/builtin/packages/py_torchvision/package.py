@@ -213,9 +213,21 @@ class PyTorchvision(PythonPackage):
         # When building with ROCm, add all ROCm library include paths for HIP compilation
         # PyTorch headers transitively include many ROCm headers that extensions need
         if "^py-torch+rocm" in self.spec:
-            rocm_deps = ["rocthrust", "rocprim", "hipsparse", "hipblas", "hipblas-common",
-                         "hipblaslt", "hipfft", "hiprand", "hipsolver", "rocblas",
-                         "rocsparse", "rocsolver", "rocfft"]
+            rocm_deps = [
+                "rocthrust",
+                "rocprim",
+                "hipsparse",
+                "hipblas",
+                "hipblas-common",
+                "hipblaslt",
+                "hipfft",
+                "hiprand",
+                "hipsolver",
+                "rocblas",
+                "rocsparse",
+                "rocsolver",
+                "rocfft",
+            ]
             for dep in rocm_deps:
                 if dep in self.spec:
                     include.append(self.spec[dep].prefix.include)

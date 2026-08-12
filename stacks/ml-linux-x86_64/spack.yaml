@@ -34,14 +34,14 @@ spack:
     - py-lightning
     - py-pytorch-lightning
     - py-segmentation-models-pytorch
-    #- py-timm
+    - py-timm
     - py-torch
-    #- py-torch-geometric
+    - py-torch-geometric
     #- py-torch-nvidia-apex
     #- py-torchaudio
     #- py-torchgeo
-    #- py-torchmetrics
-    #- py-torchvision
+    - py-torchmetrics
+    - py-torchvision
     #- py-vector-quantize-pytorch
   - scikit_learn_specs:
     - py-scikit-learn

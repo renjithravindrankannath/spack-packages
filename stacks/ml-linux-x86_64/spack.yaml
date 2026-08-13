@@ -37,7 +37,7 @@ spack:
     - py-timm
     - py-torch
     - py-torch-geometric
-    #- py-torch-nvidia-apex
+    - py-torch-nvidia-apex
     - py-torchaudio
     - py-torchgeo
     - py-torchmetrics

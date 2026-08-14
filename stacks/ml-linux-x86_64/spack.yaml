@@ -37,7 +37,6 @@ spack:
     - py-timm
     - py-torch
     - py-torch-geometric
-    - py-torch-nvidia-apex
     - py-torchaudio
     - py-torchgeo
     - py-torchmetrics
@@ -84,6 +83,7 @@ spack:
     - $scikit_learn_specs
     - $tensorboard_specs
     - $tensorflow_specs
+    - py-torch-nvidia-apex
     # xgboost requires older cuda, which doesn't support newer GCC
     # - $xgboost_specs
     override:

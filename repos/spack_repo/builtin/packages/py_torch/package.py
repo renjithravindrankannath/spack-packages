@@ -98,8 +98,15 @@ class PyTorch(PythonPackage, CudaPackage, ROCmPackage):
     variant("cudnn", default=not is_darwin, description="Use cuDNN", when="+cuda")
     variant("fbgemm", default=True, description="Use FBGEMM (quantized 8-bit server operators)")
     variant("kineto", default=True, description="Use Kineto profiling library", when="@1.8:2.10")
-    variant("kineto", default=True, description="Use Kineto profiling library", when="@2.11: ~rocm")
-    variant("kineto", default=False, description="Disable Kineto from 2.11 on ROCm", when="@2.11: +rocm")
+    variant(
+        "kineto", default=True, description="Use Kineto profiling library", when="@2.11: ~rocm"
+    )
+    variant(
+        "kineto",
+        default=False,
+        description="Disable Kineto from 2.11 on ROCm",
+        when="@2.11: +rocm",
+    )
     variant("magma", default=not is_darwin, description="Use MAGMA", when="+cuda")
     variant("metal", default=is_darwin, description="Use Metal for Caffe2 iOS build")
     variant(

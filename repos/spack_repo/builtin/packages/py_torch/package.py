@@ -378,6 +378,7 @@ class PyTorch(PythonPackage, CudaPackage, ROCmPackage):
         depends_on("amdsmi", when="@2.12")
         depends_on("rocfft")
         depends_on("rocblas")
+        depends_on("miopen-hip")
         depends_on("composable-kernel")
         depends_on("hipblaslt")
         depends_on("rocm-smi-lib")

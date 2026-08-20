@@ -98,7 +98,8 @@ class PyTorch(PythonPackage, CudaPackage, ROCmPackage):
     variant("cudnn", default=not is_darwin, description="Use cuDNN", when="+cuda")
     variant("fbgemm", default=True, description="Use FBGEMM (quantized 8-bit server operators)")
     variant("kineto", default=True, description="Use Kineto profiling library", when="@1.8:2.10")
-    variant("kineto", default=False, description="Disable Kineto from 2.11 on rocm", when="@2.11:")
+    variant("kineto", default=True, description="Use Kineto profiling library", when="@2.11: ~rocm")
+    variant("kineto", default=False, description="Disable Kineto from 2.11 on ROCm", when="@2.11: +rocm")
     variant("magma", default=not is_darwin, description="Use MAGMA", when="+cuda")
     variant("metal", default=is_darwin, description="Use Metal for Caffe2 iOS build")
     variant(
@@ -370,9 +371,9 @@ class PyTorch(PythonPackage, CudaPackage, ROCmPackage):
         depends_on("amdsmi", when="@2.12")
         depends_on("rocfft")
         depends_on("rocblas")
-        depends_on("miopen-hip")
         depends_on("composable-kernel")
         depends_on("hipblaslt")
+        depends_on("rocm-smi-lib")
         # Ensure hipblaslt version for 2.9+
         depends_on("hipblaslt@7.0:", when="@2.9:")
         depends_on("rocminfo")

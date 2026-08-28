@@ -119,6 +119,15 @@ class ComposableKernel(ROCmLibrary, CMakePackage):
     # https://github.com/ROCm/composable_kernel/commit/959073842c0db839d45d565eb260fd018c996ce4
     patch("0001-mark-kernels-maybe-unused.patch", when="@6.2")
 
+    # Fix CMake error with set_source_files_properties COMPILE_FLAGS
+    # The offload_targets variable contains spaces and needs to be quoted
+    # PR: https://github.com/ROCm/rocm-libraries/pull/11440
+    patch(
+        "https://github.com/ROCm/rocm-libraries/pull/11440.patch?full_index=1",
+        when="@7.14.0",
+        sha256="b186af36a1a4210dd82b31abea94c6cab09cfabea47128f41abe68655e744339",
+    )
+
     @property
     def root_cmakelists_dir(self):
         if self.spec.satisfies("@7.2:"):

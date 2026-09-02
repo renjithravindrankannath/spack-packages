@@ -230,7 +230,7 @@ class Hipsparselt(ROCmLibrary, CMakePackage, ROCmPackage):
                 "hipBLASLt/library/src/amd_detail/rocblaslt/src/extops/CMakeLists.txt",
                 string=True,
             )
-        if self.spec.satisfies("@7.1:"):
+        if self.spec.satisfies("@7.1:7.14"):
             filter_file(
                 "${PROJECT_BINARY_DIR}/lib",
                 ":".join(["${PROJECT_BINARY_DIR}/lib", joblib_path]),
@@ -238,6 +238,18 @@ class Hipsparselt(ROCmLibrary, CMakePackage, ROCmPackage):
                 "projects/hipblaslt/tensilelite/Tensile/cmake/TensileConfig.cmake",
                 string=True,
             )
+            yaml_path = os.path.join(self.spec["py-pyyaml"].prefix, purelib)
+            packaging_path = os.path.join(self.spec["py-packaging"].prefix, purelib)
+            msgpack_path = os.path.join(self.spec["py-msgpack"].prefix, purelib)
+            filter_file(
+                "${_python_path}",
+                ":".join(
+                    ["${_python_path}", joblib_path, yaml_path, packaging_path, msgpack_path]
+                ),
+                "projects/hipblaslt/cmake/hipblaslt_python.cmake",
+                string=True,
+            )
+        if self.spec.satisfies("@10.0:"):
             yaml_path = os.path.join(self.spec["py-pyyaml"].prefix, purelib)
             packaging_path = os.path.join(self.spec["py-packaging"].prefix, purelib)
             msgpack_path = os.path.join(self.spec["py-msgpack"].prefix, purelib)

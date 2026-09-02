@@ -21,7 +21,6 @@ class RocmBandwidthTest(ROCmLibrary, CMakePackage):
 
     rocm_url_map = [(None, "https://github.com/ROCm/rocm_bandwidth_test/archive/rocm-{0}.tar.gz")]
 
-    version("10.0.0", sha256="f30517ed6d9e18cde104eb487f173e62fed0175083a9498ca383f8136a9f4eec")
     version(
         "7.2.3",
         git="https://github.com/ROCm/rocm_bandwidth_test",
@@ -137,12 +136,11 @@ class RocmBandwidthTest(ROCmLibrary, CMakePackage):
         "7.2.0",
         "7.2.1",
         "7.2.3",
-        "10.0.0",
     ]:
         depends_on(f"hsa-rocr-dev@{ver}", when=f"@{ver}")
         depends_on(f"rocm-core@{ver}", when=f"@{ver}")
 
-    for ver in ["7.0.0", "7.0.2", "7.1.0", "7.1.1", "7.2.0", "7.2.1", "7.2.3", "10.0.0"]:
+    for ver in ["7.0.0", "7.0.2", "7.1.0", "7.1.1", "7.2.0", "7.2.1", "7.2.3"]:
         depends_on(f"llvm-amdgpu@{ver}", when=f"@{ver}")
         depends_on(f"hip@{ver} +rocm", when=f"@{ver}")
 

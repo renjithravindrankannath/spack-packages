@@ -24,6 +24,11 @@ class RocmExamples(CMakePackage):
     license("MIT")
 
     version(
+        "10.0.0",
+        url="https://github.com/ROCm/rocm-examples/archive/refs/tags/therock-10.0.tar.gz",
+        sha256="f30517ed6d9e18cde104eb487f173e62fed0175083a9498ca383f8136a9f4eec",
+    )
+    version(
         "7.14.0",
         url="https://github.com/ROCm/rocm-examples/archive/refs/tags/therock-7.14.tar.gz",
         sha256="9b349f7cf6af86f84cd469486be6203dc01bafbe3bcf4738cf91d22f46373103",
@@ -94,6 +99,7 @@ class RocmExamples(CMakePackage):
         "7.2.3",
         "7.13.0",
         "7.14.0",
+        "10.0.0",
     ]:
         depends_on(f"hip@{ver}", when=f"@{ver}")
         depends_on(f"hipify-clang@{ver}", when=f"@{ver}")

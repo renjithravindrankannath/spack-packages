@@ -28,6 +28,7 @@ class Migraphx(ROCmLibrary, CMakePackage):
     ]
 
     license("MIT")
+    version("10.0.0", sha256="f30517ed6d9e18cde104eb487f173e62fed0175083a9498ca383f8136a9f4eec")
     version("7.14.0", sha256="9798b091a9660d5e7a889087956684416c43dabc4f315fd8937590b00d35034d")
     version(
         "7.13.0", branch="release/rocm-rel-7.13", commit="f066712b04f87e927217edee3fc630e856787eb2"
@@ -139,6 +140,7 @@ class Migraphx(ROCmLibrary, CMakePackage):
         "7.2.3",
         "7.13.0",
         "7.14.0",
+        "10.0.0",
     ]:
         depends_on(f"rocm-cmake@{ver}:", type="build", when=f"@{ver}")
         depends_on(f"hip@{ver}", when=f"@{ver}")
@@ -186,6 +188,7 @@ class Migraphx(ROCmLibrary, CMakePackage):
         "7.2.3",
         "7.13.0",
         "7.14.0",
+        "10.0.0",
     ]:
         for tgt in itertools.chain(["auto"], amdgpu_targets):
             depends_on(f"hipblas@{ver} amdgpu_target={tgt}", when=f"@{ver} amdgpu_target={tgt}")

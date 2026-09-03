@@ -132,7 +132,18 @@ class RocprofilerDev(ROCmLibrary, CMakePackage):
         depends_on(f"hip@{ver}", when=f"@{ver}")
         depends_on(f"rocm-smi-lib@{ver}", when=f"@{ver}")
 
-    for ver in ["7.0.0", "7.0.2", "7.1.0", "7.1.1", "7.2.0", "7.2.1", "7.2.3", "7.13.0", "7.14.0", "10.0.0"]:
+    for ver in [
+        "7.0.0",
+        "7.0.2",
+        "7.1.0",
+        "7.1.1",
+        "7.2.0",
+        "7.2.1",
+        "7.2.3",
+        "7.13.0",
+        "7.14.0",
+        "10.0.0",
+    ]:
         depends_on(f"hsa-amd-aqlprofile@{ver}", when=f"@{ver}")
 
     depends_on("py-lxml")

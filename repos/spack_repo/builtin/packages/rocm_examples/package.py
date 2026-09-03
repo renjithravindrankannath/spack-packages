@@ -23,11 +23,7 @@ class RocmExamples(CMakePackage):
 
     license("MIT")
 
-    version(
-        "10.0.0",
-        url="https://github.com/ROCm/rocm-examples/archive/refs/tags/therock-10.0.tar.gz",
-        sha256="f30517ed6d9e18cde104eb487f173e62fed0175083a9498ca383f8136a9f4eec",
-    )
+    version("10.0.0", branch="release/therock-10.0", commit="316a181036f180d20db40621945a2888539a9665")
     version(
         "7.14.0",
         url="https://github.com/ROCm/rocm-examples/archive/refs/tags/therock-7.14.tar.gz",
@@ -141,6 +137,7 @@ class RocmExamples(CMakePackage):
         "7.2.3",
         "7.13.0",
         "7.14.0",
+        "10.0.0",
     ]:
         for tgt in itertools.chain(["auto"], amdgpu_targets):
             depends_on(f"hipfft@{ver} amdgpu_target={tgt}", when=f"@{ver} amdgpu_target={tgt}")
@@ -148,7 +145,7 @@ class RocmExamples(CMakePackage):
                 f"rocfft@{ver} amdgpu_target={tgt}", when=f"@{ver} +rocm amdgpu_target={tgt}"
             )
 
-    for ver in ["7.2.0", "7.2.1", "7.2.3", "7.13.0", "7.14.0"]:
+    for ver in ["7.2.0", "7.2.1", "7.2.3", "7.13.0", "7.14.0", "10.0.0"]:
         for tgt in itertools.chain(["auto"], amdgpu_targets):
             depends_on(f"hipsparse@{ver} amdgpu_target={tgt}", when=f"@{ver} amdgpu_target={tgt}")
             depends_on(f"hip-tensor@{ver} amdgpu_target={tgt}", when=f"@{ver} amdgpu_target={tgt}")
@@ -178,13 +175,15 @@ class RocmExamples(CMakePackage):
     )
 
     def patch(self):
-        filter_file(
-            r"${ROCM_PATH}",
-            f"{self.spec['hipify-clang'].prefix}",
-            "HIP-Basic/hipify/CMakeLists.txt",
-            string=True,
-        )
-        # Disable rocProfiler-SDK examples in 7.13 due to missing header issues
+        # Apply patch for all versions that have HIP-Basic/hipify example
+        if self.spec.satisfies("@6.2:"):
+            filter_file(
+                r"${ROCM_PATH}",
+                f"{self.spec['hipify-clang'].prefix}",
+                "HIP-Basic/hipify/CMakeLists.txt",
+                string=True,
+            )
+        # Disable rocProfiler-SDK examples in 7.13+ due to missing header issues
         if self.spec.satisfies("@7.13:"):
             filter_file(
                 "add_subdirectory(rocProfiler-SDK)",

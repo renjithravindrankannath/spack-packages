@@ -26,7 +26,7 @@ class Rpp(ROCmLibrary, CMakePackage):
 
     def url_for_version(self, version):
         if version >= Version("7.14.0"):
-            url = "https://github.com/ROCm/rocm-libraries/archive/refs/tags/therock-7.14.tar.gz"
+            url = "https://github.com/ROCm/rocm-libraries/archive/refs/tags/therock-{0}.{1}.tar.gz"
         elif version >= Version("5.7.0"):
             url = "https://github.com/ROCm/rpp/archive/refs/tags/rocm-{0}.tar.gz"
         else:

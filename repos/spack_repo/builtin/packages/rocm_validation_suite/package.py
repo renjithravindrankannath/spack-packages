@@ -22,7 +22,7 @@ class RocmValidationSuite(ROCmLibrary, CMakePackage):
     url = "https://github.com/ROCm/ROCmValidationSuite/archive/rocm-6.4.3.tar.gz"
     tags = ["rocm"]
 
-   # Version 10.0.0 uses v1.6.0 tag
+    # Version 10.0.0 uses v1.6.0 tag
     version(
         "10.0.0",
         url="https://github.com/ROCm/ROCmValidationSuite/archive/refs/tags/v1.6.0.tar.gz",
@@ -246,17 +246,17 @@ class RocmValidationSuite(ROCmLibrary, CMakePackage):
         depends_on(f"rocm-openmp-extras@{ver}", when=f"@{ver}")
 
     for ver in [
-        "7.0.0", 
-        "7.0.2", 
-        "7.1.0", 
-        "7.1.1", 
-        "7.2.0", 
-        "7.2.1", 
-        "7.2.3", 
-        "7.13.0", 
+        "7.0.0",
+        "7.0.2",
+        "7.1.0",
+        "7.1.1",
+        "7.2.0",
+        "7.2.1",
+        "7.2.3",
+        "7.13.0",
         "7.14.0",
         "10.0.0",
-        ]:
+    ]:
         depends_on(f"amdsmi@{ver}", when=f"@{ver}")
 
     for tgt in ROCmPackage.amdgpu_targets:

@@ -169,9 +169,11 @@ class RocprofilerCompute(ROCmLibrary, CMakePackage):
                 json_path = join_path(external_base, "json")
                 mkdirp(json_path)
                 json_cmake = join_path(json_path, "CMakeLists.txt")
-                with open(json_cmake, 'w') as f:
-                    f.write("""# Wrapper to use system nlohmann_json as header-only
+                with open(json_cmake, "w") as f:
+                    f.write(
+                        """# Wrapper to use system nlohmann_json as header-only
 add_library(nlohmann_json INTERFACE)
 target_include_directories(nlohmann_json INTERFACE {})
 target_compile_features(nlohmann_json INTERFACE cxx_std_11)
-""".format(self.spec['nlohmann-json'].prefix.include))
+""".format(self.spec["nlohmann-json"].prefix.include)
+                    )

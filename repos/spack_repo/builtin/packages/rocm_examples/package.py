@@ -23,7 +23,9 @@ class RocmExamples(CMakePackage):
 
     license("MIT")
 
-    version("10.0.0", branch="release/therock-10.0", commit="316a181036f180d20db40621945a2888539a9665")
+    version(
+        "10.0.0", branch="release/therock-10.0", commit="316a181036f180d20db40621945a2888539a9665"
+    )
     version(
         "7.14.0",
         url="https://github.com/ROCm/rocm-examples/archive/refs/tags/therock-7.14.tar.gz",

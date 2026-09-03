@@ -25,7 +25,10 @@ class Rpp(ROCmLibrary, CMakePackage):
     license("MIT")
 
     rocm_url_map = [
-        ("5.6.1", "https://github.com/GPUOpen-ProfessionalCompute-Libraries/rpp/archive/{0}.tar.gz"),
+        (
+            "5.6.1",
+            "https://github.com/GPUOpen-ProfessionalCompute-Libraries/rpp/archive/{0}.tar.gz",
+        ),
         ("7.2.4", "https://github.com/ROCm/rpp/archive/refs/tags/rocm-{0}.tar.gz"),
         (None, "https://github.com/ROCm/rocm-libraries/archive/refs/tags/therock-{1}.{2}.tar.gz"),
     ]

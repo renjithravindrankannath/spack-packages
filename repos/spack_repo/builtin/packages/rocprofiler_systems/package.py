@@ -403,11 +403,7 @@ class RocprofilerSystems(ROCmLibrary, CMakePackage):
         return args
 
     def flag_handler(self, name, flags):
-        if (
-            self.spec.satisfies("@6.3:7.1")
-            or self.spec.satisfies("@7.14")
-            or self.spec.satisfies("@10:")
-        ):
+        if (self.spec.satisfies("@6.3:7.1") or self.spec.satisfies("@7.14:")):
             if name == "ldflags":
                 flags.append("-lintl")
         return (flags, None, None)

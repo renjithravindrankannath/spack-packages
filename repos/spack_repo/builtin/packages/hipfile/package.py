@@ -43,6 +43,7 @@ class Hipfile(ROCmLibrary, CMakePackage):
 
     depends_on("cmake@3.16.8:", type="build")
     depends_on("util-linux")  # for libmount
+    depends_on("boost+program_options", type="build")
 
     with when("+rocm"):
         for ver in [

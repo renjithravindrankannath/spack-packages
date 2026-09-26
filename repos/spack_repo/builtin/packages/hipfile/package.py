@@ -67,8 +67,9 @@ class Hipfile(ROCmLibrary, CMakePackage):
 
     def setup_build_environment(self, env: EnvironmentModifications) -> None:
         env.set("HIP_PATH", self.spec["hip"].prefix)
-        env.set("ROCM_PATH", self.spec["hip"].prefix)
-        env.set("HIP_PLATFORM", "amd")
+        if self.spec.satisfies("+rocm"):
+            env.set("ROCM_PATH", self.spec["hip"].prefix)
+            env.set("HIP_PLATFORM", "amd")
 
     def cmake_args(self):
         args = [
@@ -81,6 +82,9 @@ class Hipfile(ROCmLibrary, CMakePackage):
 
         if self.spec.satisfies("^cmake@3.21.0:3.21.2"):
             args.append(self.define("__skip_rocmclang", "ON"))
+
+        if self.spec.satisfies("%gcc@11"):
+            args.append(self.define("BUILD_TESTING", "OFF"))
 
         if "auto" not in self.spec.variants["amdgpu_target"]:
             args.append(self.define_from_variant("GPU_TARGETS", "amdgpu_target"))

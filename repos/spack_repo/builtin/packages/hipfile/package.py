@@ -83,7 +83,7 @@ class Hipfile(ROCmLibrary, CMakePackage):
         if self.spec.satisfies("^cmake@3.21.0:3.21.2"):
             args.append(self.define("__skip_rocmclang", "ON"))
 
-        if self.spec.satisfies("%gcc@11"):
+        if self.spec.satisfies("%gcc@:11"):
             args.append(self.define("BUILD_TESTING", "OFF"))
 
         if "auto" not in self.spec.variants["amdgpu_target"]:

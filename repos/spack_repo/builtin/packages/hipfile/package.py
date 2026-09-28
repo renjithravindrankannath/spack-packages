@@ -66,8 +66,8 @@ class Hipfile(ROCmLibrary, CMakePackage):
             return "rocprofiler-sdk/projects/hipfile"
 
     def setup_build_environment(self, env: EnvironmentModifications) -> None:
-        env.set("HIP_PATH", self.spec["hip"].prefix)
         if self.spec.satisfies("+rocm"):
+            env.set("HIP_PATH", self.spec["hip"].prefix)
             env.set("ROCM_PATH", self.spec["hip"].prefix)
             env.set("HIP_PLATFORM", "amd")
 

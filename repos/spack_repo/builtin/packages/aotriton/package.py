@@ -82,7 +82,7 @@ class Aotriton(CMakePackage):
     conflicts(
         "%gcc@:11",
         when="@0.9b:",
-        msg="GCC 11 and earlier have C++ syntax issues with [[deprecated]] attributes combined with visibility attributes",
+        msg="GCC 11 incompatible with C++ [[deprecated]] attribute syntax",
     )
 
     # ROCm dependencies
